@@ -1,8 +1,21 @@
-use std::env;
+use std::{env, process::exit};
 
 fn main() {
+
+    let args: Vec<String> = env::args().collect();
+
     env::set_var("RUST_BACKTRACE", "full");
-    let code = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
+
+    if args[1].is_empty()
+    {
+        println!("Usage: ./bfri.exe [brainfuck code]");
+        exit(0);
+    }
+
+    println!("Your code was {}", args[1]);
+
+    let code = args[1].as_str();
+
 
     //The "standard" for brainfuck interpreters/compilers is 30000
     let mut mem_space: Vec<u8> = vec![0; 30000];
